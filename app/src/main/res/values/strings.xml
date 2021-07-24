@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Project Organizer</string>
+
+
+    <string name="image_contentDescription">image</string>
+    <string name="let_s_get_started_text">Lets Get started</string>
+    <string name="intro_text_description">Collaborate and Plan Together With your colleague with our app.</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+
+    <string name="sign_up_description_text">Enter your name, email id and password, to register with us.</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    <string name="sign_in_description_text">Enter your email id and password, to sign in again.</string>
+</resources>
