@@ -1,4 +1,4 @@
-package com.projectorganizer
+package com.projectorganizer.activities
 
 import android.content.Intent
 import android.graphics.Typeface

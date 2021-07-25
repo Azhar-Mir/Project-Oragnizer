@@ -1,4 +1,4 @@
-package com.projectorganizer
+package com.projectorganizer.activities
 
 import android.os.Bundle
 import android.view.WindowManager

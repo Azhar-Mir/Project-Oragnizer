@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.BaseActivity"></activity>
         <activity
-            android:name="com.projectorganizer.SplashActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,23 +21,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroActivity"
+            android:name=".activities.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="com.projectorganizer.SignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <!-- TODO (Step 2: Modify the activity tag as per requirement) -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- TODO (Step 2: Modify the activity tag as per requirement) -->
         <!-- START -->
-        <activity android:name="com.projectorganizer.SignInActivity"
+        <activity
+            android:name=".activities.SignInActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!--END-->
-
-        <activity android:name="com.projectorganizer.MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- END -->
+        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>
