@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 3: Design the Sign In screen layout as per our requirement.)-->
-<!--START-->
-<!--The values for the drawable items, dimen, string and color values are added in their respective folders and files.-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
     android:orientation="vertical"
-    tools:context="com.projectorganizer.SignInActivity">
+    tools:context="com.projectorganizer.activities.SignInActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sign_in_activity"
@@ -65,7 +62,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/et_email_sign_in"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
@@ -81,7 +78,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_password"
+                        android:id="@+id/et_password_sign_in"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
