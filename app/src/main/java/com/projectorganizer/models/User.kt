@@ -20,8 +20,7 @@ data class User (
         parcel.readString()!!,
         parcel.readLong()!!,
         parcel.readString()!!
-    ) {
-    }
+    )
 
     override fun describeContents() = 0
 
@@ -32,8 +31,6 @@ data class User (
         writeString(image)
         writeLong(mobile)
         writeString(fcmToken)
-
-
     }
 
     companion object CREATOR : Parcelable.Creator<User> {

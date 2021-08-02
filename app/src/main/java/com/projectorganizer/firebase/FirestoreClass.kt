@@ -1,15 +1,16 @@
 package com.projectorganizer.firebase
 
+import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.projectorganizer.activities.MainActivity
+import com.projectorganizer.activities.MyProfileActivity
 import com.projectorganizer.activities.SignInActivity
 import com.projectorganizer.activities.SignUpActivity
 import com.projectorganizer.models.User
 import com.projectorganizer.utils.Constants
-
-
 
 class FirestoreClass {
 
@@ -32,7 +33,7 @@ class FirestoreClass {
                 )
             }
     }
-    fun signInUser(activity: SignInActivity) {
+    fun loadUserData(activity: Activity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
@@ -41,9 +42,31 @@ class FirestoreClass {
                     activity.javaClass.simpleName, document.toString()
                 )
                 val loggedInUser = document.toObject(User::class.java)!!
-                activity.signInSuccess(loggedInUser)
+
+
+                when(activity){
+                    is SignInActivity ->{
+                        activity.signInSuccess(loggedInUser)
+                    }
+                    is MainActivity ->{
+                        activity.updateNavigationUserDetails(loggedInUser)
+                    }
+                    is MyProfileActivity ->{
+                        activity.setUserDataUI(loggedInUser)
+                    }
+                }
+
             }
             .addOnFailureListener { e ->
+
+                when(activity){
+                    is SignInActivity ->{
+                        activity.hideProgressDialog()
+                    }
+                    is MainActivity ->{
+                        activity.hideProgressDialog()
+                    }
+                }
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while getting loggedIn user details",
@@ -52,6 +75,13 @@ class FirestoreClass {
             }
     }
     fun getCurrentUserID(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        var currentUserID = ""
+        if(currentUser != null){
+            currentUserID = currentUser.uid
+        }
+
+        return currentUserID
     }
 }

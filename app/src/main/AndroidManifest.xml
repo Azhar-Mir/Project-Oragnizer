@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.projectorganizer">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.BaseActivity"></activity>
+        <activity android:name=".activities.MyProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.BaseActivity" />
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
@@ -27,13 +34,15 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- TODO (Step 2: Modify the activity tag as per requirement) -->
-        <!-- START -->
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SignInActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- END -->
-        <activity android:name=".activities.MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
