@@ -47,7 +47,8 @@
                     android:layout_width="@dimen/my_profile_user_image_size"
                     android:layout_height="@dimen/my_profile_user_image_size"
                     android:contentDescription="@string/image_contentDescription"
-                    android:src="@drawable/ic_user_place_holder" />
+                    android:src="@drawable/ic_user_place_holder"
+                    />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.projectorganizer.firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -31,6 +32,23 @@ class FirestoreClass {
                     "Error writing document",
                     e
                 )
+            }
+    }
+
+    fun updateUserProfileData(activity: MyProfileActivity,userHashMap: HashMap<String,Any>){
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+                Log.i(activity.javaClass.simpleName,"profile Data updated")
+                Toast.makeText(activity,"Profile updated successfully!",Toast.LENGTH_LONG)
+                activity.profileUpdateSuccess()
+            }.addOnFailureListener{
+                e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"error while creating board",e)
+                Toast.makeText(activity,"Profile update error!",Toast.LENGTH_LONG)
+
             }
     }
     fun loadUserData(activity: Activity) {
