@@ -6,10 +6,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.projectorganizer.activities.MainActivity
-import com.projectorganizer.activities.MyProfileActivity
-import com.projectorganizer.activities.SignInActivity
-import com.projectorganizer.activities.SignUpActivity
+import com.projectorganizer.activities.*
+import com.projectorganizer.models.Board
 import com.projectorganizer.models.User
 import com.projectorganizer.utils.Constants
 
@@ -32,6 +30,18 @@ class FirestoreClass {
                     "Error writing document",
                     e
                 )
+            }
+    }
+    fun createBoard(activity: CreateBoardActivity,board: Board){
+        mFireStore.collection(Constants.BOARDS)
+            .document().set(board, SetOptions.merge()).addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName,"Board created successfully.")
+                Toast.makeText(activity,"Board Created Successfully",Toast.LENGTH_LONG).show()
+                activity.boardCreatedSuccessfully()
+            }.addOnFailureListener{
+                exception ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"error while creating a board",exception)
             }
     }
 
