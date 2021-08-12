@@ -4,6 +4,7 @@ import android.app.Activity
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.projectorganizer.activities.*
@@ -30,6 +31,24 @@ class FirestoreClass {
                     "Error writing document",
                     e
                 )
+            }
+    }
+
+    fun getBoardDetails(activity: TaskListActivity, documentId: String){
+
+        mFireStore.collection(Constants.BOARDS)
+            .document(documentId)
+            .get()
+            .addOnSuccessListener {
+                    document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+
+                activity.boardDetails(document.toObject(Board::class.java)!!)
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
     }
 
@@ -69,7 +88,6 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
             }
-
     }
 
     fun updateUserProfileData(activity: MyProfileActivity,userHashMap: HashMap<String,Any>){
