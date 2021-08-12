@@ -1,24 +1,16 @@
 package com.projectorganizer.activities
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import android.util.Log
-import android.view.ContextMenu
-import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
-import com.bumptech.glide.Glide;
-import com.google.firebase.ktx.Firebase
+import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.projectorganizer.R

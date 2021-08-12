@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +19,6 @@ import com.projectorganizer.models.Board
 import com.projectorganizer.utils.Constants
 import kotlinx.android.synthetic.main.activity_create_board.*
 import kotlinx.android.synthetic.main.activity_my_profile.*
-import kotlinx.android.synthetic.main.activity_my_profile.toolbar_my_profile_activity
 import java.io.IOException
 
 class CreateBoardActivity : BaseActivity() {
@@ -132,6 +130,9 @@ class CreateBoardActivity : BaseActivity() {
     }
     fun boardCreatedSuccessfully(){
         hideProgressDialog()
+
+        setResult(Activity.RESULT_OK)
+
         finish()
     }
 

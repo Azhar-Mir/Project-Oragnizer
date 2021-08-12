@@ -32,6 +32,7 @@ class FirestoreClass {
                 )
             }
     }
+
     fun createBoard(activity: CreateBoardActivity,board: Board){
         mFireStore.collection(Constants.BOARDS)
             .document().set(board, SetOptions.merge()).addOnSuccessListener {
@@ -45,13 +46,39 @@ class FirestoreClass {
             }
     }
 
+    fun getBoardsList(activity: MainActivity){
+
+        mFireStore.collection(Constants.BOARDS)
+            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                document ->
+                Log.i(activity.javaClass.simpleName, document.documents.toString())
+                val boardsList: ArrayList<Board> = ArrayList()
+
+                for (i in document.documents) {
+                    val board = i.toObject(Board::class.java)!!
+                    board.documentId = i.id
+                    boardsList.add(board)
+                }
+
+                activity.populateBoardsListToUI(boardsList)
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating a board.", e)
+            }
+
+    }
+
     fun updateUserProfileData(activity: MyProfileActivity,userHashMap: HashMap<String,Any>){
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .update(userHashMap)
             .addOnSuccessListener {
-                Log.i(activity.javaClass.simpleName,"profile Data updated")
-                Toast.makeText(activity,"Profile updated successfully!",Toast.LENGTH_LONG)
+                Log.e(activity.javaClass.simpleName,"profile Data updated")
+                Toast.makeText(activity,"Profile updated successfully!",Toast.LENGTH_LONG).show()
                 activity.profileUpdateSuccess()
             }.addOnFailureListener{
                 e ->
@@ -61,7 +88,7 @@ class FirestoreClass {
 
             }
     }
-    fun loadUserData(activity: Activity) {
+    fun loadUserData(activity: Activity, readBoardsList: Boolean = false) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
@@ -77,7 +104,7 @@ class FirestoreClass {
                         activity.signInSuccess(loggedInUser)
                     }
                     is MainActivity ->{
-                        activity.updateNavigationUserDetails(loggedInUser)
+                        activity.updateNavigationUserDetails(loggedInUser, readBoardsList)
                     }
                     is MyProfileActivity ->{
                         activity.setUserDataUI(loggedInUser)

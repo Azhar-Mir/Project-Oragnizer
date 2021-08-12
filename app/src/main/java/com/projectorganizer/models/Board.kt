@@ -2,18 +2,21 @@ package com.projectorganizer.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.firestore.DocumentId
 
 class Board (
     val name: String= "",
     val image: String="",
     val createdBy: String="",
-    val assignedTo: ArrayList<String> = ArrayList()
+    val assignedTo: ArrayList<String> = ArrayList(),
+    var documentId: String = ""
         ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.createStringArrayList()!!
+        parcel.createStringArrayList()!!,
+        parcel.readString()!!
     ) {
     }
 
@@ -22,6 +25,7 @@ class Board (
         parcel.writeString(image)
         parcel.writeString(createdBy)
         parcel.writeStringList(assignedTo)
+        parcel.writeString(documentId)
     }
 
     override fun describeContents(): Int {
