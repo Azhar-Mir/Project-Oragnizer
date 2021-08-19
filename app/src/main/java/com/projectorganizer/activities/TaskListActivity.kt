@@ -8,6 +8,7 @@ import com.projectorganizer.R
 import com.projectorganizer.adapters.TaskListItemsAdapter
 import com.projectorganizer.firebase.FirestoreClass
 import com.projectorganizer.models.Board
+import com.projectorganizer.models.Card
 import com.projectorganizer.models.Task
 import com.projectorganizer.utils.Constants
 import kotlinx.android.synthetic.main.activity_task_list.*
@@ -84,5 +85,26 @@ class TaskListActivity : BaseActivity() {
 
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this,mBoardDetails)
+    }
+    fun addCardToTaskList(position: Int,cardName:String){
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+        val cardAssignedUserList:ArrayList<String> = ArrayList()
+        cardAssignedUserList.add(FirestoreClass().getCurrentUserID())
+
+        val card=Card(cardName,FirestoreClass().getCurrentUserID(),cardAssignedUserList)
+
+        val cardsList = mBoardDetails.taskList[position].cards
+        cardsList.add(card)
+
+        val task = Task(
+            mBoardDetails.taskList[position].title,
+            mBoardDetails.taskList[position].createdBy,
+            cardsList
+
+            )
+        mBoardDetails.taskList[position]=task
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this,mBoardDetails)
+
     }
 }
