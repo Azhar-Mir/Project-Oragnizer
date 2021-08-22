@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.projectorganizer.R
 import com.projectorganizer.activities.TaskListActivity
@@ -99,6 +100,11 @@ open class TaskListItemsAdapter(private val context: Context,private var list: A
                     Toast.makeText(context,"please enter a card name.",Toast.LENGTH_SHORT).show()
                 }
             }
+            holder.itemView.rv_card_list.layoutManager = LinearLayoutManager(context)
+            holder.itemView.rv_card_list.setHasFixedSize(true)
+
+            val adapter = CardListItemsAdapter(context, model.cards)
+            holder.itemView.rv_card_list.adapter = adapter
         }
     }
     private fun alertDialogForDeleteList(position: Int, title: String) {

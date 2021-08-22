@@ -37,4 +37,11 @@
     <string name="hint_card_name">Card Name</string>
     <string name="add_list">Add List</string>
 
+    <string name="members">Members</string>
+
+    <string name="add_member">Add Member</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add">ADD</string>
+    <string name="search_member">Add Member</string>
+
 </resources>
