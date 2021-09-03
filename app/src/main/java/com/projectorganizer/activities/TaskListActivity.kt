@@ -1,8 +1,11 @@
 package com.projectorganizer.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.telecom.Call
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projectorganizer.R
 import com.projectorganizer.adapters.TaskListItemsAdapter
@@ -12,22 +15,59 @@ import com.projectorganizer.models.Card
 import com.projectorganizer.models.Task
 import com.projectorganizer.utils.Constants
 import kotlinx.android.synthetic.main.activity_task_list.*
+import java.text.FieldPosition
 
 class TaskListActivity : BaseActivity() {
 
     private lateinit var mBoardDetails : Board
+    private lateinit var mBoardDocumentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
 
-        var boardDocumentId = ""
         if (intent.hasExtra(Constants.DOCUMENT_ID)) {
-            boardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
+            mBoardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID)!!
         }
 
         showProgressDialog(resources.getString(R.string.please_wait))
-        FirestoreClass().getBoardDetails(this@TaskListActivity, boardDocumentId)
+        FirestoreClass().getBoardDetails(this, mBoardDocumentId)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == MEMBER_REQUEST_CODE){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardDetails(this, mBoardDocumentId)
+        }else{
+            Log.e("Cancelled", "Cancelled")
+        }
+    }
+
+    fun cardDetails(taskListPosition: Int, cardPosition: Int){
+        val intent = Intent(this, CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+        intent.putExtra(Constants.TASK_LIST_ITEM_POSITION, taskListPosition)
+        intent.putExtra(Constants.CARD_LIST_ITEM_POSITION, cardPosition)
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_members, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_members ->{
+                val intent = Intent(this, MembersActivity::class.java)
+                intent.putExtra(Constants.BOARD_DETAIL, mBoardDetails)
+                startActivityForResult(intent, MEMBER_REQUEST_CODE)
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupActionBar() {
@@ -106,5 +146,9 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().addUpdateTaskList(this,mBoardDetails)
 
+    }
+
+    companion object{
+        const val MEMBER_REQUEST_CODE : Int = 13
     }
 }
