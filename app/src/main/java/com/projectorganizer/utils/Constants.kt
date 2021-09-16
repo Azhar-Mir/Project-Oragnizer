@@ -22,6 +22,10 @@ object Constants {
     const val SELECT: String = "select"
     const val UN_SELECT: String = "UnSelect"
 
+    const val PROJECTORGANIZER_PREFERENCES = "ProjectOrganizer_perferences"
+    const val FCM_TOKEN = "fcmToken"
+    const val FCM_TOKEN_UPDATED:String = "fcmTokenUpdated"
+
     const val TASK_LIST_ITEM_POSITION: String = "task_list_item_position"
     const val CARD_LIST_ITEM_POSITION: String = "card_list_item_position"
     const val BOARD_MEMBERS_LIST: String = "board_members_list"
